@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarkJeffs Shopping</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        main {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+        .products, .cart, .registration {
+            width: 30%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .products img {
+            width: 100%;
+            height: auto;
+        }
+        .product {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        .cart ul, .cart p {
+            list-style: none;
+            padding: 0;
+        }
+        .cart ul li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MarkJeffs Shopping</h1>
+        <p>Buy laptops at affordable prices - Prices in Kenyan Shillings</p>
+    </header>
+
+    <nav>
+        <a href="#products">Products</a>
+        <a href="#cart">Cart</a>
+        <a href="#register">Register</a>
+    </nav>
+
+    <main>
+        <!-- Products Section -->
+        <div class="products" id="products">
+            <h2>Available Laptops</h2>
+            <div class="product">
+                <img src="https://via.placeholder.com/200x150" alt="Laptop 1">
+                <h3>Lenovo IdeaPad</h3>
+                <p>Ksh 45,000</p>
+                <button onclick="addToCart('Lenovo IdeaPad', 45000)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/200x150" alt="Laptop 2">
+                <h3>Lenovo ThinkPad</h3>
+                <p>Ksh 80,000</p>
+                <button onclick="addToCart('Lenovo ThinkPad', 80000)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/200x150" alt="Laptop 3">
+                <h3>Lenovo Yoga</h3>
+                <p>Ksh 70,000</p>
+                <button onclick="addToCart('Lenovo Yoga', 70000)">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Cart Section -->
+        <div class="cart" id="cart">
+            <h2>Your Cart</h2>
+            <ul id="cartItems">
+                <li>No items in the cart</li>
+            </ul>
+            <p>Total: Ksh <span id="totalAmount">0</span></p>
+            <button onclick="checkout()">Checkout</button>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="registration" id="register">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 MarkJeffs Shopping. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+        let totalAmount = 0;
+
+        function addToCart(product, price) {
+            cart.push({ product, price });
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+            totalAmount = 0;
+
+            cart.forEach(item => {
+                totalAmount += item.price;
+                const li = document.createElement('li');
+                li.innerText = `${item.product} - Ksh ${item.price}`;
+                cartItems.appendChild(li);
+            });
+
+            document.getElementById('totalAmount').innerText = totalAmount;
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            alert('Proceeding to payment options...');
+            // Here you can add payment logic
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            alert(`Registered successfully!\nUsername: ${username}\nEmail: ${email}`);
+            // Add logic for saving user information
+        });
+    </script>
+
+</body>
+</html>
